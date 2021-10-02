@@ -7,6 +7,10 @@ bin-release/
 # Other files and folders
 .settings/
 
+/manage.py
+/project/celery.py
+/project/asgi.py
+
 # Executables
 *.swf
 *.air

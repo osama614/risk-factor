@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import  User
+from .models import  User, ChronicDisease
 from django.contrib.auth.admin import UserAdmin
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin
@@ -16,11 +16,11 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ("email", "username", "phone_number")
     search_fields =("email", "username", "phone_number")
    
-# @admin.register(ChronicDisease)
-# class SessionAdmin(admin.ModelAdmin):
-#     list_display = ("owner",)
-#     list_filter = ("owner",)
-#     search_fields =("owner",)
+@admin.register(ChronicDisease)
+class SessionAdmin(admin.ModelAdmin):
+    list_display = ("name","severity")
+    list_filter = ("name","severity")
+    search_fields = ("name","severity")
 
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin
