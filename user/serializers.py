@@ -12,18 +12,22 @@ from django.utils.text import gettext_lazy as _
 
 User = get_user_model()
 
-class ChronicDSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ChronicDisease
-        fields = "__all__"
-        read_only_fields = ('id',)
+class ChronicDSerializer(serializers.Serializer):
+    organ_transplant = serializers.BooleanField(default=False)
+    pregnancy = serializers.BooleanField(default=False)
+    cardiovascular_disease = serializers.BooleanField(default=False)
+    COPD = serializers.BooleanField(default=False)
+    renal_disease = serializers.BooleanField(default=False)
+    cancer = serializers.BooleanField(default=False)
+    hypertension = serializers.BooleanField(default=False)
+    diabetes = serializers.BooleanField(default=False)
 
 class SignupSerializer(serializers.ModelSerializer):
-    chronic_disease = ChronicDSerializer()
+    chronic_diseases = ChronicDSerializer()
     email = serializers.EmailField(max_length=60, required=True, validators=[UniqueValidator(queryset=User.objects.all())])
     class Meta:
         model = User
-        fields = ('id', 'username', 'password','email', "country","phone_number","gender","age","chronic_disease")
+        fields = ('id', 'username', 'password','email', "country","phone_number","gender","age","chronic_diseases")
         extra_kwargs = {
             'password': {'write_only': True},
         }
@@ -32,12 +36,18 @@ class SignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop("password")
-        chronic_disease = validated_data.pop("chronic_disease")
+        chronic_diseases = validated_data.pop("chronic_diseases")
         user = User.objects.create_user(
             **validated_data
         )
         user.set_password(password)
-        P = ChronicDisease.objects.create(owner=user, **chronic_disease)
+        print(chronic_diseases)
+
+        for k in chronic_diseases:
+            print(chronic_diseases[k])
+            if chronic_diseases[k]:
+                chronic_disease = ChronicDisease.objects.filter(name = k).first()
+                user.chronic_diseases.add(chronic_disease)
         user.save()
         return user
 

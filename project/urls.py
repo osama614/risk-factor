@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/v1/notifications/', include('notification.urls',namespace='notification')),
     path('api/v1/users/auth/', include('user.urls',namespace='user')),
-    # path('api/v1/diagnoses/auth/', include('diagnostic.urls',namespace='diagnoses')),
+    path('api/v1/diagnose/', include('diagnostic.urls',namespace='diagnoses')),
     # path('api/v1/dashboard/auth/', include('dashboard.urls',namespace='dashboard')),
     path('__debug__/', include(debug_toolbar.urls)),
 
