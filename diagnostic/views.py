@@ -65,7 +65,7 @@ class Diagnose(GenericAPIView):
     coryza              = 0
     diarrhea            = 0
 
-    def get(self, request):
+    def pos(self, request):
         diagnostic_base_data =  {
             "loss_of_smell": self.loss_of_smell,
             "fever": self.fever,
