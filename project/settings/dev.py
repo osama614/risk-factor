@@ -35,7 +35,7 @@ DEFAULT_FROM_EMAIL = 'ah.khaled2020@gmail.com'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite4',
     }
 }
 
