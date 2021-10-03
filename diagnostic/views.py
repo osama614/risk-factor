@@ -6,7 +6,7 @@ import math
 # Create your views here.
 
 class Diagnose(GenericAPIView):
-    total_rating = 51.68
+    total_rating = 33.57
     risk_factor_cal = {
         "age":{
             "18-29": .56,
@@ -42,7 +42,7 @@ class Diagnose(GenericAPIView):
             "loss_of_smell": .89,
             "fever": 3.49,
             "covid_at_home": 0,
-            "shortness_of_breath": 1,
+            "shortness_of_breath": 8.2,
             "myalgia": 1.44,
             "cough": 2.49,
             "nausea": 2.41,
@@ -128,7 +128,8 @@ class Diagnose(GenericAPIView):
             for g in diagnostic_data:
                 if g != "headache":
                     diagnostic_base_data[g] = diagnostic_data[g]
-                    n += self.risk_factor_cal["diagnostic"][g]
+                    if diagnostic_data[g] == 1:
+                        n += self.risk_factor_cal["diagnostic"][g]
         else:
             return Response({"message":"check your diagnostic data!","error":"Bad Request"}, status=status.HTTP_400_BAD_REQUEST)
 
