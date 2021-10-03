@@ -18,7 +18,7 @@ def upload_avater(instance, filename):
 class ChronicDisease(models.Model):
     ChronicDisease_choices = (
             ("immunodeficiency_disorder","Immunodeficiency Disorder"),
-            ("Chronic_kidney_disease","Chronic kidney disease"),
+            ("chronic_kidney_disease","Chronic kidney disease"),
             ("cardiovascular_disease","Cardiovascular Disease"),
             ("COPD","COPD"),
             ("asthma","Asthma"),

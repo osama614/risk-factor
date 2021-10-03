@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import  RefreshTokenSerializer, SignupSerializer
+from .serializers import  RefreshTokenSerializer, SignupSerializer, UserinfoSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -17,6 +17,14 @@ class Register(GenericAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Userinfo(GenericAPIView):
+    serializer_class = UserinfoSerializer
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = request.user
+        ser_user = UserinfoSerializer(user)
+        return Response(ser_user.data, status=status.HTTP_200_OK)
 
 class LogoutView(GenericAPIView):
     """This API Take a valid refresh token from the current user then he destroy it so

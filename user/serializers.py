@@ -13,11 +13,11 @@ from django.utils.text import gettext_lazy as _
 User = get_user_model()
 
 class ChronicDSerializer(serializers.Serializer):
-    organ_transplant = serializers.BooleanField(default=False)
+    immunodeficiency_disorder = serializers.BooleanField(default=False)
     pregnancy = serializers.BooleanField(default=False)
-    cardiovascular_disease = serializers.BooleanField(default=False)
+    chronic_kidney_disease = serializers.BooleanField(default=False)
     COPD = serializers.BooleanField(default=False)
-    renal_disease = serializers.BooleanField(default=False)
+    asthma = serializers.BooleanField(default=False)
     cancer = serializers.BooleanField(default=False)
     hypertension = serializers.BooleanField(default=False)
     diabetes = serializers.BooleanField(default=False)
@@ -51,6 +51,12 @@ class SignupSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class UserinfoSerializer(serializers.ModelSerializer):
+    
+    #email = serializers.EmailField(max_length=60, required=True, validators=[UniqueValidator(queryset=User.objects.all())])
+    class Meta:
+        model = User
+        fields = ('id',"avater", 'username','email', "country","gender","age")
 
 class RefreshTokenSerializer(serializers.Serializer):
     refresh = serializers.CharField()
