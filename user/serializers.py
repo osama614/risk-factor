@@ -14,7 +14,7 @@ User = get_user_model()
 
 class ChronicDSerializer(serializers.Serializer):
     immunodeficiency_disorder = serializers.BooleanField(default=False)
-    pregnancy = serializers.BooleanField(default=False)
+    cardiovascular_disease = serializers.BooleanField(default=False)
     chronic_kidney_disease = serializers.BooleanField(default=False)
     COPD = serializers.BooleanField(default=False)
     asthma = serializers.BooleanField(default=False)

@@ -9,6 +9,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         self.room_group_name = 'notification_%s_%s' % (user.username, user.id)
         
         print(user.id)
+        print('#########################################################')
 
         # Join room group
         await self.channel_layer.group_add(

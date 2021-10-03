@@ -18,15 +18,15 @@ from notification.routing import websocket_urlpatterns
 
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.dev')
-#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.production')
+#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.dev')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.pro')
 django.setup()
 from .middleware.channelsmiddleware import JwtAuthMiddlewareStack
 
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
-    "websocket": JwtAuthMiddlewareStack(
+    "websocket": AuthMiddlewareStack(
         URLRouter(
            websocket_urlpatterns
         )

@@ -12,7 +12,7 @@ import json
 from asgiref.sync import async_to_sync
 from django.shortcuts import render, HttpResponse
 from rest_framework.decorators import APIView
-
+import requests
 # Create your views here.
 def index(request):
     return render(request, 'notification/index.html')
@@ -23,6 +23,10 @@ def room(request, room_name):
     })
 
 
+API_KEY = '1d509b2f565fcf3fa07873c700e84453'
+uri = "https://api.openweathermap.org/data/2.5/weather?q=Cairo&appid"
+
+#res = requests.get()
 
 # Create your models here.
 User = get_user_model()
@@ -70,26 +74,17 @@ def notification_handeler(sender, instance, created, *args, **kwargs):
         if  isinstance(instance.recipient, list):
 
             for user in instance.recipient:
-                #print(f'from 1 {user}')
+                print(f'from 1 {user}')
                 async_to_sync(channel_layer.group_send)(
+                    
                     f"notification_{user.username}_{user.id}",
                     {
                         'type': 'send_notification',
                         'message': json.dumps(ser.data)
                     }
                 )
-        # elif instance.recipient.model is User:
-        #     print(f'from 2 {instance}')
-        #     async_to_sync(channel_layer.group_send)(
-        #                 f"notification_{instance.recipient.username}_{instance.recipient.id}",
-        #                 {
-        #                     'type': 'send_notification',
-        #                     'message': json.dumps(ser.data)
-        #                 }
-        #             )
-            
         else:
-            #print(f'from 3 {instance.recipient}')
+            print(f'from s {instance.recipient.username}')
             async_to_sync(channel_layer.group_send)(
                         
                         f"notification_{instance.recipient.username}_{instance.recipient.id}",
